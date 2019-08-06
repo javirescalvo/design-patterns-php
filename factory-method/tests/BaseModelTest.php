@@ -3,8 +3,9 @@
 namespace Styde\Tests;
 
 use Styde\Models\BaseModel;
+use Styde\Tests\ExampleModel;
 
-class CreateModelTest extends TestCase
+class BaseModelTest extends TestCase
 {
     /** @test */
     function a_model_can_be_instantiated()
@@ -44,7 +45,7 @@ class CreateModelTest extends TestCase
 
         $model->unguard();
 
-        $model->setAttributes([
+        $model->fill([
             'first_name' => 'Duilio',
         ]);
 
@@ -52,7 +53,7 @@ class CreateModelTest extends TestCase
 
         $model->reguard();
 
-        $model->setAttributes([
+        $model->fill([
             'last_name' => 'Palacios',
         ]);
 
@@ -70,7 +71,3 @@ class CreateModelTest extends TestCase
     }
 }
 
-class ExampleModel extends BaseModel
-{
-    protected $fillable = ['name', 'email'];
-}

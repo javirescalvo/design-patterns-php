@@ -2,7 +2,7 @@
 
 namespace Styde\Models;
 
-class BaseModel
+abstract class BaseModel
 {
     public $wasRecentlyCreated;
 
@@ -14,31 +14,39 @@ class BaseModel
 
     public function __construct(array $attributes = [])
     {
-        $this->setAttributes($attributes);
+        $this->fill($attributes);
     }
 
-    public function setAttributes(array $attributes)
+    public function fill(array $attributes)
     {
         if ($this->unguarded) {
             $this->attributes = $attributes;
         } else {
             $this->attributes = array_intersect_key($attributes, array_flip($this->fillable));
         }
+
+        return $this;
     }
 
     public function unguard()
     {
         $this->unguarded = true;
+
+        return $this;
     }
 
     public function reguard()
     {
         $this->unguarded = false;
+
+        return $this;
     }
 
     public function save()
     {
         $this->wasRecentlyCreated = true;
+
+        return $this;
     }
 
     public function __get($key)
